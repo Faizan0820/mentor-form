@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Registration Form</title>
+    <style>
+        /* Existing styles */
+    </style>
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('http://localhost:3000/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                
+                if (response.ok) {
+                    alert('Registration successful!');
+                    event.target.reset();
+                } else {
+                    alert('Failed to register. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the form.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="form-header">Mentor Registration Form</h2>
+        <form id="registrationForm" onsubmit="submitForm(event)">
+            <!-- Form fields remain unchanged -->
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>
